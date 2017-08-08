@@ -43,11 +43,11 @@
 
 ## Plan & Documentation
   1. prioritization (need ETC)
-    1. read .cpp or .h file
-    2. 
+    - read .cpp or .h file
+    - 
   2. Test Plan for every each steps
   3. Algorithms or Libraries
-    1. iostream, fstream
+    - iostream, fstream
 
 ## Implementation
   #### do
