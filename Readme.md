@@ -1,5 +1,5 @@
 # Dupe Checker
-**Dupe Checker** is a `C++` [library] that checks if the two given files are identical.
+**Dupe Checker** is a `C++` [program] that checks if the two given files are identical.
 Supported file extensions are `.cpp` and `.h`
 
 ## Analyze the given problem
@@ -14,3 +14,5 @@ Supported file extensions are `.cpp` and `.h`
 - Two input files are compared by each [character].
 
 - All meaningful (or valid) characters must be identical.
+
+
