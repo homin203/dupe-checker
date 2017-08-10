@@ -9,15 +9,16 @@ string removeComments(string);
 int main() {
   // variables
   string temp1, temp2;
-  string text1, text2, fileName1, fileName2; 
+  string text1, text2, fileName1, fileName2;
   ifstream fin1, fin2;
-  
+
   cout << "Enter the first file name: ";
   getline(cin, fileName1);
 
   cout << "Enter the second file name: ";
   getline(cin, fileName2);
 
+  // WARN: DO NOT open multiple files at the same time.
   fin1.open(fileName1);
   fin2.open(fileName2);
 
@@ -62,7 +63,7 @@ string removeComments(string getUserInput) {
   for (int i = 0; i < getUserInput.size(); i++) {
     if (getUserInput[i] == '/' && getUserInput[i+1] == '/') {
       getUserInput.erase(getUserInput.begin(), getUserInput.end() - 1);
-    } 
+    }
     else {
       temp += getUserInput[i];
     }
