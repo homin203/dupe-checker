@@ -1,3 +1,11 @@
+// ** Do not open multiple files at the same time
+//  1. make a function to open and read a file [x]
+// ** Consider readability
+//  1. use more readable way instead of using ascii value [x]
+//  2. replace variable names to understandable names [x]
+// ** Use iterator instead of for loop in remove_functions in maintenance stage []
+//  1. READ and STUDY Text Parsing pdf file in Module2
+// ** when use loop for string, use unsigned int [x]
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -5,69 +13,70 @@ using namespace std;
 
 string removeSpaces(const string);
 string removeComments(string);
+string readFile(const string);
 
 int main() {
   // variables
-  string temp1, temp2;
-  string text1, text2, fileName1, fileName2; 
-  ifstream fin1, fin2;
+  string fileName1, fileName2; 
   
   cout << "Enter the first file name: ";
   getline(cin, fileName1);
 
-  cout << "Enter the second file name: ";
-  getline(cin, fileName2);
+  // cout << "Enter the second file name: ";
+  // getline(cin, fileName2);
 
-  fin1.open(fileName1);
-  fin2.open(fileName2);
-
-  while (fin1.good() && fin2.good()) {
-    getline(fin1, text1);
-    getline(fin2, text2);
-
-    if ((text1 == "EOF") || (text2 == "EOF")) break;
-    if (text1.empty() && text2.empty()) continue;
-
-    temp1 += removeComments(text1);
-    temp2 += removeComments(text2);
-  }
-
-  cout << temp1 << endl << endl;
-  cout << temp2 << endl;
-
-  fin1.close();
-  fin2.close();
+  cout << readFile(fileName1) << endl;
 
   return 0;
 }
 
 /**
  * special space remover
- * @param    getUserInput [constant value of string data type value]
+ * @param    textsInfile [constant value of string data type value]
  * @return   temp         [storing a string without spaces]
  */
-string removeSpaces(const string getUserInput) {
-  string temp; // declare a string data type variable temp
-  for (int i = 0; i < getUserInput.size(); i++) {
-    // if a character of a string is lower case or upper case alphabet,
-    // assign each value into the temp
-    if ((int)getUserInput[i] >= 33 && (int)getUserInput[i] <= 127)
-      temp += getUserInput[i]; // temp = temp + getUserInput[i];
+string removeSpaces(const string textsInfile) {
+  string textWoSpaces; // declare a string data type variable textWoSpaces
+  for (unsigned int i = 0; i < textsInfile.size(); i++) {
+    // validation for normal and special character
+    // assign each value into the textWoSpaces
+    if (textsInfile[i] >= '!' && textsInfile[i] <= '~') 
+      textWoSpaces += textsInfile[i]; // textWoSpaces = textWoSpaces + textsInfile[i];
   }
-  return temp;
+  return textWoSpaces;
 }
 
-string removeComments(string getUserInput) {
-  string temp;
-  for (int i = 0; i < getUserInput.size(); i++) {
-    if (getUserInput[i] == '/' && getUserInput[i+1] == '/') {
-      getUserInput.erase(getUserInput.begin(), getUserInput.end() - 1);
+string removeComments(string textsInfile) {
+  string textWoComments;
+  for (unsigned int i = 0; i < textsInfile.size(); i++) {
+    if (textsInfile[i] == '/' && textsInfile[i+1] == '/') {
+      textsInfile.erase(textsInfile.begin(), textsInfile.end() - 1);
     } 
     else {
-      temp += getUserInput[i];
+      textWoComments += textsInfile[i];
     }
   }
-  return temp;
+  return textWoComments;
+}
+
+string readFile(const string fileName) {
+  ifstream fin;
+  fin.open(fileName);
+
+  string textRead, tempText;
+
+  while (fin.good()) {
+    getline(fin, textRead);
+
+    if (textRead == "EOF") break;
+    if (textRead.empty()) continue;
+
+    tempText += textRead + "\n";
+  }
+
+  fin.close();
+
+  return tempText;
 }
 
 

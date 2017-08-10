@@ -15,6 +15,9 @@ int main () {
     str2 = str.substr(pos2 + 2);
     temp = str1 + str2;
   }
+  // when finding starting point("/*") and ending point("*/"),
+  // use flag as a on/off switch
+  // once a "/*" found, flag is on and keep going until "*/ found"
 
   cout << temp << endl;
   
