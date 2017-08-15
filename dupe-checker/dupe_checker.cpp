@@ -12,8 +12,11 @@
 using namespace std;
 
 string removeSpaces(const string);
-string removeComments(string);
+string removeSingleComments(string);
+string removeBlockComments(string);
 string readFile(const string);
+
+vector<string> parseString(string&);
 
 int main() {
   // variables
@@ -46,7 +49,7 @@ string removeSpaces(const string textsInfile) {
   return textWoSpaces;
 }
 
-string removeComments(string textsInfile) {
+string removeSingleComments(string textsInfile) {
   string textWoComments;
   for (unsigned int i = 0; i < textsInfile.size(); i++) {
     if (textsInfile[i] == '/' && textsInfile[i+1] == '/') {
@@ -57,6 +60,39 @@ string removeComments(string textsInfile) {
     }
   }
   return textWoComments;
+}
+/** function will be used in readFile function */
+string removeBlockComments(string textsInfile) {
+  // loop will only be terminated when EOF
+  string textRead, tempText;
+  bool m_cmt = false;
+  int beg_pos, end_pos;
+
+
+
+  for (unsigned int i = 0; i < textsInfile.size(); i++) {
+    /* if (textsInfile[i] == '/' && textsInfile[i + 1] == '/') {
+      textsInfile.erase(textsInfile.begin(), textsInfile.end() - 1);
+    }
+    else  */ 
+
+    //(***********) if we have flag already on then the next "/*" will be just portion of a line comment
+    if (m_cmt == false && textsInfile[i] == '/' && textsInfile[i + 1] == '*') {
+      m_cmt = true;
+      beg_pos = textsInfile.find("/*");
+      // two possible occasions to remove comments: 1) */ is not on the same line
+      //                                            2) */ is on the same line 
+    }
+    else if (m_cmt == true && textsInfile[i] == '*' && textsInfile[i + 1] == '/') {
+      m_cmt = false;
+      end_pos = textsInfile.find("*/");
+      // two possible occasions: 1) */ is on the same line
+      //                          2) */ is on different line
+    }
+    else if (m_cmt == true && ) // occasion when line does not start with /* and flag is already on
+  }
+  
+  return tempText;
 }
 
 string readFile(const string fileName) {
@@ -79,6 +115,11 @@ string readFile(const string fileName) {
   return tempText;
 }
 
+vector<string> parseString(string& str) {
+  stringstream s(str);
+  istream_iterator<string> begin(s), end;
+  return vector<string>(begin, end);
+}
 
 
 
@@ -94,4 +135,6 @@ string readFile(const string fileName) {
   // if all the same, true
   // otherwise, false
 
+
+/*  /* /* /* /* /* /* */
 
